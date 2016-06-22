@@ -1,0 +1,49 @@
+<p>
+	<button class="btn btn-success disabled">留言列表</button>
+</p>
+
+<ul>
+	<li class="review_list_li">
+		<strong>1.</strong>		
+		<strong class="title">
+			收到的留言
+		</strong>
+		<button  ng-click="showList('1')" class="btn btn-default pull-right">
+			查看
+		</button>
+		<ol class="pt20" ng-show="getListShow">
+			<li class="review_list_ol_li review_list_li" ng-repeat="item in getList">
+				<strong class="btn-success btn disabled">ID {{item.id}}</strong>								
+				{{item.content}}
+				<br>
+				<button ng-click="delet(getList , $index)" class="btn btn-sm btn-danger pull-right">删除</button>
+				<strong class="btn-default btn btn-sm disabled pull-right mr10">{{item.time | toTime}}</strong>
+			</li>
+			<button class="btn btn-success pull-right" ng-if="!getList.length">无数据</button>	
+
+			<paging loader="getMsg(nowpage , 1)" ng-show="getList.length" everynum="{{EveryPage}}" ng-count="{{countGet}}"></paging>	
+		</ol>		
+	</li>
+
+	<li class="review_list_li">
+		<strong>2.</strong>		
+		<strong class="title">
+			发出的留言
+		</strong>
+		<button  ng-click="showList('0')" class="btn btn-default pull-right">
+			查看
+		</button>
+		<ol class="pt20" ng-show="sendListShow">
+			<li class="review_list_ol_li review_list_li" ng-repeat="item in sendList">
+				<strong class="btn-success btn disabled">ID {{item.id}}</strong>
+				{{item.content}}
+				<br>
+				<button ng-click="delet(sendList , $index)" class="btn btn-sm btn-danger pull-right">删除</button>
+				<strong class="btn-default btn btn-sm disabled pull-right mr10">{{item.time | toTime}}</strong>
+			</li>
+			<button class="btn btn-success pull-right" ng-if="!sendList.length">无数据</button>	
+
+			<paging loader="getMsg(nowpage , 0)" ng-show="sendList.length" everynum="{{EveryPage}}" ng-count="{{countSend}}"></paging>	
+		</ol>
+	</li>	
+</ul>

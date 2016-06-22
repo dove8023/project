@@ -1,0 +1,50 @@
+<table class="table u_table user_topic_list">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th class="w200">标题</th>
+			<th class="w60">封面</th>
+			<th class="w150">发布时间</th>
+			<th>类型</th>
+			<th>发布者</th>
+			<th>操作</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in listArr">
+			<th scope="row">{{item.id}}</th>
+			<td>{{item.title}}</td>
+			<td>
+				<img ng-src="{{item.cover_pic | cover_pic}}" alt="">
+			</td>
+			<td>{{item.publishtime | toTime}}</td>
+			<td class="list_strong">
+				<strong ng-if="item.contenttype==1" class="btn-default">
+					话题
+				</strong>
+				<strong ng-if="item.contenttype==3" class="btn-primary">
+					视频
+				</strong>
+				<strong ng-if="item.contenttype==4" class="btn-success">
+					直播
+				</strong>
+				<strong ng-if="item.contenttype==5" class="btn-info">
+					H5
+				</strong>
+				<strong ng-if="item.contenttype==6" class="btn-danger">
+					人物
+				</strong>
+			</td>
+			<td>{{item.nick}}</td>
+			<td>
+				<a target="_blank" ng-if="item.contenttype==1" href="/index/topicNormal?from=userdetail&type=editor&id={{item.id}}" class="btn btn-success">详情查看</a>
+				<a target="_blank" ng-if="item.contenttype==3" href="/index/topicVideo?from=userdetail&type=editor&id={{item.id}}" class="btn btn-success">详情查看</a>
+				<a target="_blank" ng-if="item.contenttype==4" href="/index/topicLive?from=userdetail&type=editor&id={{item.id}}" class="btn btn-success">详情查看</a>
+				<a target="_blank" ng-if="item.contenttype==5" href="/index/topicH5?from=userdetail&type=editor&id={{item.id}}" class="btn btn-success">详情查看</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<strong class="user_tip" ng-cloak ng-show="!listArr.length">无数据</strong>
+<paging loader="getData(nowpage - 1)" everynum="{{EveryPage}}" ng-show="listArr.length" ng-count="{{count}}"></paging>

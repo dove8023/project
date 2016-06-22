@@ -1,0 +1,26 @@
+<p>
+	<button class="btn btn-success disabled">回复话题列表</button>
+</p>
+<ul class="review_list">
+	<li ng-repeat="item in listArr">		
+		<strong class="mr20">
+			标题ID {{item.id}}
+		</strong>
+		<span class="title">{{item.title}}</span>
+		<button  ng-click="getRepeat(item)" class="btn btn-default pull-right">
+			查看
+		</button>
+		<ol class="review_list_ol pt20" ng-show="item.show">
+			<li ng-repeat="obj in item.details">
+				<strong class="btn-success btn disabled">ID {{obj.id}}</strong>
+				{{obj.content}}
+				<br>
+				<button ng-click="delet(item , $index)" class="btn btn-sm btn-danger pull-right">删除</button>
+				<strong class="btn-default btn btn-sm disabled pull-right mr10">{{obj.time | toTime}}</strong>
+			</li>
+			<button class="btn btn-success pull-right" ng-if="!item.details.length">无数据</button>		
+		</ol>
+	</li>
+	<button class="btn btn-success" ng-if="!listArr.length">无数据</button>	
+</ul>
+<paging loader="getData(nowpage)" ng-show="listArr.length" everynum="{{EveryPage}}" ng-count="{{count}}"></paging>

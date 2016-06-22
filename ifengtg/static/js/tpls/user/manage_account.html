@@ -1,0 +1,80 @@
+<button ng-click="openAddModal()" class="btn btn-success btn-lg pull-right">
+	账号添加
+</button>
+<table class="table u_table table-hover">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th class="w150">用户名</th>
+			<th>头像</th>		
+			<th class="w150">注册时间</th>
+			<th>信息编辑</th>
+			<th>详情查看</th>
+		</tr>
+	</thead>			
+	<tbody>
+		<tr ng-repeat="item in showlist">
+			<th scope="row">{{item.id}}</th>
+			<td>{{item.nick}}</td>
+			<td class="user_head_2">
+				<img ng-src="{{item.head | head_img}}" alt="">
+			</td>
+			<!-- <td>
+				{{item.nospeak | nospeak_deal}}
+				{{item.status | status_deal}}
+				{{item.is_editer | is_editer_deal}}
+			</td>
+			<td>{{item.sex | sex}}</td> -->
+			<td>{{item.ctime | toTime}}</td>
+			<!-- <td>
+				{{item.ltime | toTime}}
+			</td> -->
+			<!-- <td>{{item.city}}</td>
+			<td>{{item.constelltion}}</td>
+			<td>
+				{{item.phone}}
+			</td> -->
+			<td>				
+				<button ng-click="goEditerInfo(item.id)" class="btn btn-success">
+					信息编辑
+				</button>
+			</td>
+			<td>	
+				<a class="btn btn-success" target="_blank" href="/index/userDetail?id={{item.id}}">详情查看</a>	
+			</td>							
+		</tr>				 
+	</tbody>
+</table>
+<strong class="user_tip" ng-cloak ng-show="NoData">无数据</strong>
+
+
+<!-- 原因写入模态框 -->
+<div class="modal fade" id="addUser" role="dialog" aria-labelledby="mySmallModalLabel" ng-controller="AddCountCtrl">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title">
+					<strong>账号添加</strong><br>
+					<span style="font-size:12px;">(添加的账号可在用户管理列表中查看)</span>		
+				</h4>
+			</div>
+			<div class="modal-body">
+				<input ng-model="AddUser.username" type="text" placeholder="请输入一个用户名" class="form-control mb10">
+				<input ng-model="AddUser.password" type="password" placeholder="请输入一个密码" class="form-control mb10">
+				<input ng-model="AddUser.nick" type="text" placeholder="请输入昵称，以方便你查看" class="form-control mb10">
+				<!-- <select class="form-control">
+					<option value="">普通用户</option>
+					<option value="">后台编辑</option>
+					<option value="">官方用户</option>
+				</select> -->
+			</div>
+			<div class="modal-footer">				
+				<button type="button" ng-click="SendData()" class="btn btn-primary">保存</button>
+				<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
