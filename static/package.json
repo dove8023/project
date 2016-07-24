@@ -1,0 +1,17 @@
+{
+  "name": "static-server",
+  "description": "static using.",
+  "version": "0.0.1",
+
+  "license": "MIT",
+  "dependencies": {
+
+  },
+  "files": [
+    "lib/",
+    "LICENSE",
+    "HISTORY.md",
+    "index.js"
+  ],
+
+}
