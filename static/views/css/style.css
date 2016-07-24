@@ -1,0 +1,32 @@
+/*login page*/
+html,body{
+	font-family: '微软雅黑';
+	font-size: 14px;
+}
+.login_content{
+	width: 300px;
+	margin: 100px auto 0;
+}
+.form-group{
+	width: 298px;
+	height: 30px;
+	margin-bottom: 20px;
+	border: 1px solid #999;
+}
+.form-group input{
+	width: 98%;
+	height: 30px; 
+	border: none;
+	padding-left: 2%;
+	font-family: '微软雅黑';
+}
+.login_btn{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	background-color: #0099ff;
+	color: #fff;
+	border: none;
+	font-family: '微软雅黑';
+	cursor: pointer;
+}
