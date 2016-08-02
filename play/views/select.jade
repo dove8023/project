@@ -1,0 +1,50 @@
+extends layout
+
+	
+block content
+	style.
+		*{
+			padding:0;
+			margin: 0;
+		}
+		li{
+			margin-bottom: 10px;
+			overflow: hidden;
+			border-bottom: 1px solid #ccc;
+		}
+
+		li strong{
+			width: 50px;
+		}
+		div{
+			overflow:hidden;
+		}
+		span{
+			float:left;
+			width: 80px;
+			overflow:hidden;
+			margin: 0 10px 10px 0;
+			background: pink;
+			padding: 5px;
+			height: 30px;
+			line-height: 30px;
+		}
+		li span{
+			display: inline-block;
+			float : none;
+		}
+	h1 #{title} : #{mName}
+	div
+		-for(var j=0;j<columns.length;j++){
+			span #{columns[j]}
+		-}
+
+	hr(style={"margin":"30px"})
+	ol
+		-for(var i=0,len=data.length;i<len;i++){
+			li
+				strong #{i+1}
+				-for(var s in data[i]){
+					span #{data[i][s]}
+				-}
+		-}

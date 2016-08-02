@@ -1,0 +1,24 @@
+extends layout
+
+	
+block content
+	style.
+		li{
+			margin-bottom: 10px;
+		}
+		li span,
+		li strong{
+			display: inline-block;
+			width: 120px;
+		}
+		li strong{
+			width: 50px;
+		}
+	h1= title
+	p Welcome to #{title}
+	ol
+		-for(var i=0,len=data.length;i<len;i++){
+			li 
+				a(href="/select/#{data[i].modelName}") 
+					|#{data[i].tbName}
+		-}
