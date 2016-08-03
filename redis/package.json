@@ -1,0 +1,19 @@
+{
+  "name": "login",
+  "version": "1.0.0",
+  "description": "test the redis and session cookie",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "redis",
+    "session"
+  ],
+  "author": "hexisen",
+  "license": "ISC",
+  "dependencies": {
+    "orm": "^3.1.0",
+    "redis": "^2.6.2"
+  }
+}
