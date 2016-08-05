@@ -2,61 +2,49 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var cookieSession = require("cookie-session");
 const dataModule = require("./dataModule");
-const redis = require("redis");
 const redisConfig = require("./db/redis.json");
-
-
-/*var client = redis.createClient(redisConfig);
-
-client.on("connect" , function(err){
-  if(err) throw err;
-  console.log("redis connect");
-});*/
-
-
+const session = require("express-session");
+const RedisStore = require("connect-redis")(session);
 
 var app = express();
 
 process.env.PORT = 3001;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set("trust proxy" , 1);  //trust first proxy
-app.use(cookieSession({
+
+
+
+app.use(session({
   "name" : "SessionId",
   "secret": "thesecret" ,   //通过hash计算的一个值，放倒cookie中
   "cookie":{
-    "maxAge" : 20,
+    "maxAge" :60000,
     "httpOnly":true,        //不允许客户端修改这个值
   },
   "resave":false,          //session没有修改，不要保存session的值
-  "saveUninitialized": true,
-  // "store" : new RedisStore(redisConfig)
+  "saveUninitialized": true, //保存未初始化的session
+  "store" :  new RedisStore({
+    "host" : redisConfig.host,
+    "port" : redisConfig.port
+  })
 }));
 
 new dataModule(app);
-
-/*app.use(function(req , res , next){
-  console.log(req.session);
-  console.log(req.sessionOptions);
-  console.log(req.cookies.SessionId);
-  next();
-})*/
-
 
 var Router = express.Router();
 var routes = require('./routes/index');

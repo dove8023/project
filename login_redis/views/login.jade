@@ -1,0 +1,12 @@
+extends layout
+
+block content
+	h1 Welcome Login.
+	h3 #{title}
+	form(method="post",action="/login")
+		div
+			input(type=text,name="name",placeholder="Enter sex" ,autofocus)
+		div
+			input(type=text,name="age",placeholder="Enter a age")
+		div
+			input(type="submit")
