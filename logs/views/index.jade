@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	h1= title
+	p Welcome  <strong>#{info.name}</strong>
+	p Your age is #{info.age}
+	p Your join time is #{info.createTime}
+
+	-if(info.id){
+		a(href="/loginout") 退出
+	-}
