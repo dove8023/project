@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //将数据模型绑定至req
-new mysql.connect(app);    
+new mysql(app);    
 
 app.use('/', routes);
 app.use('/users', users);

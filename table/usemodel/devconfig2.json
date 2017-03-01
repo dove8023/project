@@ -1,0 +1,7 @@
+{
+    "user": "tester",
+    "password": "Test_usEr",
+    "host": "atlas01.test.gomeplus.com:8806",
+    "port":"8806",
+    "database" : "dataplatform"
+}

@@ -8,20 +8,29 @@ const redisConfig = require("./db/redis.json");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
 const fs = require("fs");
+const FileStreamRotator = require("file-stream-rotator");
 
+/* 日志目录 */
+var logDirectory = path.join(__dirname , "log");
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
 
 var app = express();
 
 process.env.PORT = 3002;
 
-var accessLogStream = fs.createWriteStream(path.join(__dirname , "/access.log") , { flags : "a" });
+var accessLogStream = FileStreamRotator.getStream({
+  date_format : "YYYYMMDD",
+  filename: path.join(logDirectory, 'access-%DATE%.log'),
+  frequency: 'daily',
+  verbose: false
+});
 
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+var i = 0;
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('combined' , { stream : accessLogStream }));

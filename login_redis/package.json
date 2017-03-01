@@ -17,6 +17,7 @@
     "morgan": "~1.7.0",
     "orm": "^3.1.0",
     "redis": "^2.6.2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "superagent": "^3.0.0"
   }
 }

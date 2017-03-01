@@ -29,7 +29,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -40,7 +40,7 @@ app.use(cookieSession({
   "name" : "SessionId",
   "secret": "thesecret" ,   //通过hash计算的一个值，放倒cookie中
   "cookie":{
-    "maxAge" : 20,
+    "maxAge" : 20000,
     "httpOnly":true,        //不允许客户端修改这个值
   },
   "resave":false,          //session没有修改，不要保存session的值
@@ -50,12 +50,13 @@ app.use(cookieSession({
 
 new dataModule(app);
 
-/*app.use(function(req , res , next){
-  console.log(req.session);
+app.use(function(req , res , next){
+  /*console.log(req.session);
   console.log(req.sessionOptions);
-  console.log(req.cookies.SessionId);
+  console.log(req.cookies.SessionId);*/
+  console.log("yes");
   next();
-})*/
+})
 
 
 var Router = express.Router();

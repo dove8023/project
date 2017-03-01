@@ -1,0 +1,12 @@
+{
+	"host":"localhost",
+	"database":"play",
+	"username":"root",
+	"protocol":"mysql",
+	"password":"hexisen123",
+	"port":3306,
+	"timezone":"+08:00",
+	"query": {
+        "pool": true
+    }
+}

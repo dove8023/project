@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+    ul
+        -for(var i=0;i<data.length;i++){
+        li <strong>#{i}</strong> #{data[i].shop_order_fee}
+        -}

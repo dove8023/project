@@ -6,11 +6,11 @@ var bodyParser = require('body-parser');
 const dataModule = require("./dataModule");
 const redisConfig = require("./db/redis.json");
 const session = require("express-session");
-const RedisStore = require("connect-redis")(session);
+// const RedisStore = require("connect-redis")(session);
 
 var app = express();
 
-process.env.PORT = 3001;
+process.env.PORT = 3005;
 
 
 // view engine setup
@@ -19,7 +19,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -29,22 +29,22 @@ app.set("trust proxy" , 1);  //trust first proxy
 
 
 
-app.use(session({
-  "name" : "SessionId",
-  "secret": "thesecret" ,   //通过hash计算的一个值，放倒cookie中
-  "cookie":{
-    "maxAge" :60000,
-    "httpOnly":true,        //不允许客户端修改这个值
-  },
-  "resave":false,          //session没有修改，不要保存session的值
-  "saveUninitialized": true, //保存未初始化的session
-  "store" :  new RedisStore({
-    "host" : redisConfig.host,
-    "port" : redisConfig.port
-  })
-}));
+// app.use(session({
+//   "name" : "SessionId",
+//   "secret": "thesecret" ,   //通过hash计算的一个值，放倒cookie中
+//   "cookie":{
+//     "maxAge" :160000,
+//     "httpOnly":true,        //不允许客户端修改这个值
+//   },
+//   "resave":false,          //session没有修改，不要保存session的值
+//   "saveUninitialized": true, //保存未初始化的session
+//   "store" :  new RedisStore({
+//     "host" : redisConfig.host,
+//     "port" : redisConfig.port
+//   })
+// }));
 
-new dataModule(app);
+// new dataModule(app);
 
 var Router = express.Router();
 var routes = require('./routes/index');

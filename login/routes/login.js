@@ -3,7 +3,6 @@
 module.exports = (Router , Redis) => {
 
 	Router.get('/login', function(req, res, next) {
-
 		res.render("login" , { "title" : "登录页面" });
 	});
 
@@ -14,6 +13,7 @@ module.exports = (Router , Redis) => {
 	});
 
 	Router.post("/login" , function(req , res , next){
+		console.log(123,req.body);
 		if(req.body.name && req.body.age){
 			req.models.tests.find({
 				"sex":req.body.name,

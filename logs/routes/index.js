@@ -6,7 +6,6 @@ module.exports = (Router) =>{
 	Router.get('/', function(req, res, next) {
 		if(req.session.key){
 			res.render('index', { title: 'Express To log' , info : req.session.key });
-			console.log("over");
 		}else{
 			res.redirect("/login");
 		}		

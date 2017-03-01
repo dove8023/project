@@ -4,7 +4,8 @@ extends layout
 block content
 	style.
 		li{
-			margin-bottom: 10px;
+			margin-bottom: 20px;
+			border-bottom: 1px solid #ccc;
 		}
 		li span,
 		li strong{
@@ -14,11 +15,15 @@ block content
 		li strong{
 			width: 50px;
 		}
+		em{
+			color: #000;
+		}
+
 	h1= title
 	p Welcome to #{title}
 	ol
 		-for(var i=0,len=data.length;i<len;i++){
 			li 
-				a(href="/select/#{data[i].modelName}") 
-					|#{data[i].tbName}
+				a(href="/select/#{data[i].modelName}",target="_blank") 
+					span #{data[i].tbName} 模块名称：<em>#{data[i].modelName}</em>
 		-}
