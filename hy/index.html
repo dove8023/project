@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .h_100{
+            height: 100px;
+        }
+        #scrollImg{
+            overflow: hidden;
+            position: relative;
+        }
+        #scrollImg ul{
+            overflow: hidden;
+            position: relative;
+        }
+        #scrollImg ul li{
+            float: left;
+            height: 100%;
+            overflow: hidden;
+        }
+        #scrollImg ul li img{
+            width: 100%;
+            height: auto;
+        }
+        #scrollImg div{
+            position: absolute;
+            overflow: hidden;
+            bottom: 20px;
+            left: 50%;
+        }
+        #scrollImg div span{
+            border-radius: 50%;
+            background: orange;
+            width: 10px;
+            height: 10px;
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        #scrollImg div span.active{
+            background: black;
+        }
+    </style>
+</head>
+<body>
+    <div id="scrollImg" class="h_box">
+        <p class="h_100">&nbsp;&nbsp;</p>
+        <ul>
+            <li>
+                <a href="###">
+                    <img src="images/1.jpg" alt="图片">
+                </a>
+            </li>
+            <li>
+                <a href="###">
+                    <img src="images/2.jpg" alt="图片">
+                </a>
+            </li>
+            <li>
+                <a href="###">
+                    <img src="images/3.jpg" alt="图片">
+                </a>
+            </li>
+        </ul>
+        <div class="h_span">
+        </div>
+    </div>
+    <h1>
+        Good person
+    </h1>
+</body>
+</html>
+<script src="node_modules/jquery/dist/jquery.js"></script>
+<script>
+(function(){
+    var Box = $("#scrollImg"),
+        Ul  = Box.find("ul").eq(0),
+        WIN_H=window["innerHeight"],
+        WIN_W=window["innerWidth"],
+        num = Ul.children().length,
+        Div = Box.find(".h_span").eq(0);
+    Ul.children().eq(0).clone().appendTo(Ul);
+    //获取图片真实高度
+    var imgSrc = Box.find("img").eq(0).attr("src");
+    var img = new Image();
+    img.src = imgSrc;
+    img.onload = function(){
+        var imgRealHeight = this.height;
+        if(imgRealHeight+100<WIN_H){
+            Box.find("img").css({"height":'100%', width:"auto"});
+        }
+    }
+
+
+    Ul.find("li").width(WIN_W);
+
+    //处理点点
+    Div.html("").css("margin-left", -num * 20 / 2 + 'px');
+    for(var i=0;i<num;i++){
+        $('<span></span>').appendTo(Div);
+    }
+    var Spans = Div.children();
+    Spans.eq(0).addClass("active");
+    Div.delegate("span", "click", function(){
+        if($(this).hasClass("active")){
+            return;
+        }
+        var num = $(this).index();
+        move(num);
+        Div.children().removeClass("active");
+        $(this).addClass("active");
+    });
+
+
+    Ul.css({
+        "height": (WIN_H - 100) + 'px',
+        "width" : (num+1) * WIN_W + 'px'
+    }).attr("index", 0);
+
+    function move(numbers){
+        var index = Ul.attr("index");
+        Ul.attr("index", ++index);
+        if(numbers){
+            index = numbers;
+        }
+        
+        Ul.animate({"left": -1 * WIN_W * index}, 500, function(){
+            if(index >= num){
+                Ul.css("left", 0).attr("index", 0);
+                index = 0;
+            }
+
+            Spans.removeClass("active").eq(index).addClass("active");
+        });
+    }
+
+    var Timer;
+    function start(){
+        clearInterval(Timer);
+        Timer = setInterval(function(){
+            move();
+        }, 3000);
+    }
+    start();
+    
+    Box.on("mouseover", function(){
+        clearInterval(Timer);
+    }).on("mouseleave", function(){
+        start();
+    });
+
+})();
+</script>
